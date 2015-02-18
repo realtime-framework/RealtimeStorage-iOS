@@ -748,18 +748,14 @@ Define if the items are retrieved in descendent order.
 /**
  Deletes a table and all of its items.
 
- @param success The block object to call when the operation is completed.
+ @param result The block object to call when the operation is completed.
  @param error The block object to call if an exception occurred.
  
      StorageRef *storageRef = [[StorageRef alloc] init:@"your_app_key" privateKey:nil authenticationToken:@"your_token"];
      TableRef *tableRef = [storageRef table:@"your_table"];
-     [tableRef del:^(Boolean isDelete) {
-         if (isDelete) {
-             NSLog(@"Table deleted");
-         }else
-         {
-             NSLog(@"Table has not deleted");
-         }
+ 
+     [tableRef del:^(NSDictionary *result) {
+         NSLog(@"result: %@", result.description);
      } error:^(NSError *error) {
          NSLog(@"Error deleting table: %@", error.description);
      }];
