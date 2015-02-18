@@ -174,12 +174,20 @@
                     self.errorCallback([NSError errorWithDomain:@"RealtimeCloudStorage" code:[code integerValue] userInfo:errorDetails]);
                 return;
             } else {
+                
                 if(rType == deleteTable){
-                    Boolean b = (Boolean)[res objectForKey:@"data"];
+                    if (self.dictCallback) {
+                        self.dictCallback([res objectForKey:@"data"]);
+                    }
+                }
+
+                if(rType == isAuthenticated){
+                    Boolean b = (Boolean)[[res objectForKey:@"data"] boolValue];
                     if(self.boolCallback)
                         self.boolCallback(b);
                     return;
                 }
+               
                 NSDictionary *data = [res objectForKey:@"data"];
                 if([data isKindOfClass:[NSDictionary class]]){
                     /*

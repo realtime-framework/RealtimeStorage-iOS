@@ -764,7 +764,7 @@ Define if the items are retrieved in descendent order.
          NSLog(@"Error deleting table: %@", error.description);
      }];
  */
-- (void) del: (void (^)(Boolean)) aSuccessCallback error:(void (^)(NSError *error)) anErrorCallback;
+- (void) del: (void (^)(NSDictionary*)) aSuccessCallback error:(void (^)(NSError *error)) anErrorCallback;
 
 /**
  Updates the number of operations per second and how they're distributed between read and write operations of a given table. Take into account that, even though this operation completes, the table stays in a ‘updating’ state. While in this state, all operations done over this table will fail with a ResourceInUseException.

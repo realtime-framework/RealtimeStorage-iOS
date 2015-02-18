@@ -63,10 +63,10 @@
     return self;
 }
 
-- (void) del: (void (^)(Boolean)) aSuccessCallback error:(void (^)(NSError *error)) aErrorCallback{
+- (void) del: (void (^)(NSDictionary*)) aSuccessCallback error:(void (^)(NSError *error)) aErrorCallback{
     NSString *body = [NSString stringWithFormat:@"{%@, \"table\":\"%@\"}", [context getCredentialsJSON], name];
 
-    void (^cbSuccess)(Boolean) = ^(Boolean b){
+    void (^cbSuccess)(NSDictionary*) = ^(NSDictionary* b){
         if(b)
             [context delTableMetaInCache:name];
         aSuccessCallback(b);
@@ -74,7 +74,7 @@
     
     REST *r = [[REST alloc] initWithContext:context];
     r.errorCallback = aErrorCallback;
-    r.boolCallback = cbSuccess;
+    r.dictCallback = cbSuccess;
     r.rType = deleteTable;
     r.body = body;
     [context processREST:r];
